@@ -5,7 +5,7 @@ Java 21 + JavaFX 3D + Maven OOP semester project.
 ## Run in IntelliJ IDEA
 1. Open the `RoboForge` folder (the folder containing `pom.xml`).
 2. Set Project SDK to JDK 21.
-3. Reload Maven.
+3. 
 4. Run `clean javafx:run`.
 
 ## Implemented in this build

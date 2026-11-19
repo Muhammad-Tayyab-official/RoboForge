@@ -1,0 +1,14 @@
+com\roboforge\app\RoboForgeApp$1.class
+com\roboforge\model\HumanoidRobot.class
+com\roboforge\app\RoboForgeApp.class
+com\roboforge\app\RoboForgeApp$GridPoint.class
+com\roboforge\model\ExplorerRobot.class
+com\roboforge\model\Movable.class
+com\roboforge\simulation\Obstacle.class
+com\roboforge\model\ObjectHandler.class
+com\roboforge\model\Battery.class
+com\roboforge\model\Scannable.class
+com\roboforge\simulation\CollisionDetector.class
+com\roboforge\model\IndustrialRobot.class
+com\roboforge\model\Robot.class
+com\roboforge\app\RoboForgeApp$CargoProp.class
