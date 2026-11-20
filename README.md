@@ -1,28 +1,67 @@
 # RoboForge
 
-**RoboForge** is a JavaFX 3D robot-city simulator built as an object-oriented programming project. Pilot different robot types through a simulated city, monitor their telemetry, interact with cargo, scan the environment, and plan collision-aware routes.
+<p align="center">
+  <strong>Explore, control, and navigate a 3D robot city built with JavaFX.</strong><br/>
+  An object-oriented simulation of robot behaviors, telemetry, cargo handling, scanning, and collision-aware navigation.
+</p>
 
-![Java 21](https://img.shields.io/badge/Java-21-orange?logo=openjdk)
-![JavaFX 21](https://img.shields.io/badge/JavaFX-21.0.2-2f74c0)
-![Maven](https://img.shields.io/badge/build-Maven-c71a36?logo=apachemaven)
+<p align="center">
+  <img src="https://img.shields.io/badge/Java-21-orange?logo=openjdk&logoColor=white" alt="Java 21"/>
+  <img src="https://img.shields.io/badge/JavaFX-21.0.2-2f74c0" alt="JavaFX 21.0.2"/>
+  <img src="https://img.shields.io/badge/Build-Maven-c71a36?logo=apachemaven&logoColor=white" alt="Maven"/>
+  <img src="https://img.shields.io/badge/Status-Educational%20Prototype-f59e0b" alt="Educational prototype"/>
+</p>
+
+---
 
 ## Overview
 
-RoboForge provides an interactive desktop control center and a fixed-camera 3D city environment. The simulation demonstrates object-oriented modeling, JavaFX scene composition, robot behaviors, collision detection, resource management, animation, and grid-based pathfinding.
+RoboForge is a desktop JavaFX application that places three robot types inside a fixed-camera 3D city. It demonstrates object-oriented modeling, JavaFX scene composition, robot-specific capabilities, collision detection, resource management, animation, and grid-based pathfinding.
 
-## Features
+The project is designed as an interactive learning platform rather than a hardware-control system. All city objects, sensor readings, cargo, battery usage, and navigation results are simulated locally.
+
+## What it does
 
 - **Three robot types:** Humanoid, Explorer, and Industrial
-- **3D city simulation:** JavaFX primitive geometry with a fixed camera and structured city layout
-- **Robot control:** Directional movement, strafing, rotation, stopping, speed adjustment, and position reset
+- **3D city simulation:** JavaFX primitive geometry with a structured, fixed-camera environment
+- **Robot control:** Movement, strafing, rotation, stopping, speed adjustment, and position reset
 - **Environment awareness:** Building collision detection and nearby obstacle status
-- **Explorer automation:** Multi-segment Auto Explore route through the central city
-- **Scanning:** Simulated sector and cargo detection with an animated Explorer sensor head
-- **Cargo handling:** Industrial and Humanoid robots can pick up and drop visible supply crates
+- **Explorer automation:** Multi-segment automatic exploration through the city
+- **Scanning:** Simulated sector and cargo detection with animated Explorer sensors
+- **Cargo handling:** Industrial and Humanoid robots can pick up and drop supply crates
 - **Robot animation:** Industrial arm movement during cargo operations
 - **Route planning:** A* navigation on a 20-unit grid with collision checks
-- **Telemetry:** Position, mode, battery level, sensor status, cargo state, and activity log
-- **Battery simulation:** Energy use for movement, rotation, and long-distance patrols, with recharge support
+- **Telemetry:** Position, mode, battery, sensor, cargo, and activity status
+- **Battery simulation:** Energy use for movement, rotation, and patrols, with recharge support
+
+## Architecture
+
+```mermaid
+flowchart LR
+    UI[JavaFX control center] --> APP[RoboForgeApp]
+    APP --> ROBOT[Robot model]
+    ROBOT --> TYPES[Humanoid / Explorer / Industrial]
+    ROBOT --> BATTERY[Battery]
+    APP --> WORLD[3D city world]
+    WORLD --> COLLISION[CollisionDetector]
+    COLLISION --> OBSTACLES[Obstacle records]
+    APP --> ROUTES[A* grid navigation]
+```
+
+### Object-oriented design
+
+| Component | Responsibility |
+| --- | --- |
+| `Robot` | Shared movement, heading, mode, speed, and battery behavior |
+| `HumanoidRobot` | General-purpose robot with cargo handling |
+| `ExplorerRobot` | Automated exploration and environment scanning |
+| `IndustrialRobot` | Cargo handling with an animated industrial arm |
+| `Movable` | Movement and rotation contract |
+| `Scannable` | Environment scanning contract |
+| `ObjectHandler` | Cargo pickup and drop contract |
+| `CollisionDetector` | Finds obstacles that block a proposed position |
+| `Obstacle` | Immutable obstacle geometry and clearance rules |
+| `RoboForgeApp` | JavaFX scene, controls, animation, telemetry, and navigation |
 
 ## Requirements
 
@@ -30,34 +69,29 @@ RoboForge provides an interactive desktop control center and a fixed-camera 3D c
 - [Apache Maven](https://maven.apache.org/) 3.9 or later
 - A desktop environment capable of running JavaFX
 
-Verify the Java and Maven installations:
+Verify the installations:
 
 ```bash
 java -version
 mvn -version
 ```
 
-## Getting Started
+## Getting started
 
-1. Clone the repository and enter the project directory:
+Clone the repository and launch the application:
 
-   ```bash
-   git clone https://github.com/Muhammad-Tayyab-official/RoboForge.git
-   cd RoboForge
-   ```
-
-2. Start the application with Maven:
-
-   ```bash
-   mvn clean javafx:run
-   ```
+```bash
+git clone https://github.com/Muhammad-Tayyab-official/RoboForge.git
+cd RoboForge
+mvn clean javafx:run
+```
 
 Maven downloads the JavaFX dependencies and launches `com.roboforge.app.RoboForgeApp`.
 
 ### IntelliJ IDEA
 
 1. Open the directory containing `pom.xml`.
-2. Configure the project SDK as **JDK 21**.
+2. Select **JDK 21** as the project SDK.
 3. Reload the Maven project.
 4. Run the Maven goal `clean javafx:run`.
 
@@ -65,10 +99,10 @@ Maven downloads the JavaFX dependencies and launches `com.roboforge.app.RoboForg
 
 | Action | Keyboard | Control panel |
 | --- | --- | --- |
-| Move forward | `W` / `Up` | Forward button |
-| Move backward | `S` / `Down` | Backward button |
-| Strafe left/right | `A` / `Left`, `D` / `Right` | Left/right buttons |
-| Rotate | `Q`, `E` | Turn left/right |
+| Move forward | `W` / `Up` | Forward |
+| Move backward | `S` / `Down` | Backward |
+| Strafe left/right | `A` / `Left`, `D` / `Right` | Left / right |
+| Rotate | `Q`, `E` | Turn left / right |
 | Stop movement | `Space` | Stop |
 | Scan surroundings | — | Scan surroundings |
 | Pick up cargo | — | Pick cargo |
@@ -76,25 +110,25 @@ Maven downloads the JavaFX dependencies and launches `com.roboforge.app.RoboForg
 | Recharge | — | Recharge battery |
 | Explore automatically | — | Auto explore |
 | Reset position | — | Reset robot position |
-| Navigate to a destination | — | Enter X/Z and select Plan route & navigate |
+| Navigate | — | Enter X/Z and select **Plan route & navigate** |
 
 ### Robot-specific actions
 
 - **Auto Explore** requires the **Explorer Robot**.
 - **Pick Cargo** and **Drop Cargo** are available to **Humanoid** and **Industrial** robots.
 - Destination coordinates are snapped to the 20-unit navigation grid.
-- Robot switching resets the selected robot to the city start point and is disabled while cargo is being carried.
+- Switching robots resets the selected robot to the city start point and is disabled while cargo is carried.
 
-## Project Structure
+## Project structure
 
 ```text
 src/
 └── main/
     └── java/com/roboforge/
         ├── app/
-        │   └── RoboForgeApp.java       # JavaFX application and user interface
+        │   └── RoboForgeApp.java
         ├── model/
-        │   ├── Robot.java              # Shared robot behavior
+        │   ├── Robot.java
         │   ├── HumanoidRobot.java
         │   ├── ExplorerRobot.java
         │   ├── IndustrialRobot.java
@@ -107,30 +141,23 @@ src/
             └── Obstacle.java
 ```
 
-## Technical Notes
-
-- The city geometry and robot scene node are kept separate so robot movement does not transform the environment.
-- The playable area is bounded to the camera-framed city.
-- A* navigation uses the central drivable grid from `X -300..300` and `Z -150..150`.
-- Sensor readings and cargo interactions operate on simulated objects maintained by the application.
-
-## Limitations
-
-- This is a software simulation, not hardware-control software.
-- Visual assets are assembled from JavaFX primitive shapes rather than imported 3D models.
-- Sensor readings represent simulated city objects and are not physical sensor data.
-- The Industrial robot arm uses simplified joint animation rather than full inverse kinematics.
-
 ## Development
 
-Compile the project without launching the application:
+Compile without launching the application:
 
 ```bash
 mvn clean compile
 ```
 
-The Maven configuration defines Java 21 compilation and JavaFX 21.0.2 dependencies.
+The city geometry and robot scene node remain separate so robot movement never transforms the environment. The playable area is bounded to the camera-framed city, and A* navigation uses the central drivable grid from `X -300..300` and `Z -150..150`.
+
+## Limitations
+
+- This is a software simulation, not hardware-control software.
+- Visual assets use JavaFX primitive shapes rather than imported 3D models.
+- Sensor readings represent simulated city objects, not physical sensor data.
+- The Industrial robot arm uses simplified joint animation rather than full inverse kinematics.
 
 ## License
 
-No license has been specified for this project yet.
+Released under the [MIT License](LICENSE).

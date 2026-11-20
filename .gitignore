@@ -1,0 +1,15 @@
+# Maven build output
+target/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+
+# Logs and local exports
+*.log
+*.gif
+*.mp4
